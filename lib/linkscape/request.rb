@@ -9,7 +9,7 @@ module Linkscape
     
     attr_accessor :requestURL
     
-    URL_TEMPLATE = %Q[http://:apiHost:/:apiRoot:/:api:/:url:?AccessID=:accessID:&Expires=:expiration:&Signature=:signature:]
+    URL_TEMPLATE = %Q[https://:apiHost:/:apiRoot:/:api:/:url:?AccessID=:accessID:&Expires=:expiration:&Signature=:signature:]
     MAX_URL_LENGTH = 500
 
     def self.run(options)
@@ -69,6 +69,7 @@ module Linkscape
       # Fetch with a POST of thers is a body
       response = if @body
         http = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
         request = Net::HTTP::Post.new(uri.request_uri)
         request.body = @body.to_json
         http.request(request)
