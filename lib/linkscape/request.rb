@@ -69,7 +69,7 @@ module Linkscape
       # Fetch with a POST of thers is a body
       response = if @body
         http = Net::HTTP.new(uri.host, uri.port)
-        https.use_ssl = true
+        http.use_ssl = true
         request = Net::HTTP::Post.new(uri.request_uri)
         request.body = @body.to_json
         http.request(request)
