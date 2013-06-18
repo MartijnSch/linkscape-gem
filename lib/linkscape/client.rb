@@ -14,6 +14,17 @@ module Linkscape
       
     end
 
+    def metaData(*args)
+      options = Hash === args.last ? args.pop.symbolize_keys : {}
+      url = args.first ? args.shift : options[:url]
+
+      raise MissingArgument, "metaData requires a url." unless url
+
+      options[:url] = url
+      options[:api] = 'metadata'
+
+      Linkscape::Request.run(@options.merge(options))
+    end
 
     def mozRank(*args)
       options = Hash === args.last ? args.pop.symbolize_keys : {}
